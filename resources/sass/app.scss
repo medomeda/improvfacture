@@ -1,0 +1,80 @@
+// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
+
+// Variables
+@import 'variables';
+
+// Dropzone
+@import "~dropzone/dist/dropzone.css";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+//@import '~admin-lte/plugins/bootstrap/css/bootstrap.min.css';
+
+// sweet alert
+@import 'sweetalert2/src/sweetalert2.scss';
+
+
+// Font Awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+
+// DataTables
+// @import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+// @import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.css";
+// @import '~datatables.net-select-bs4/css/select.bootstrap4.css';
+// @import '~datatables.net-searchpanes-bs4/css/searchPanes.bootstrap4.css';
+
+// DataTables
+// @import "~admin-lte/plugins/datatables/dataTables.bootstrap4";
+// @import "~admin-lte/plugins/datatables/extensions/Responsive/css/dataTables.responsive";
+
+// @import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+// @import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.css";
+
+@import "~jquery-datatables-checkboxes/css/dataTables.checkboxes.css";
+
+//@import '~admin-lte/dist/css/adminlte.css';
+
+
+@import "~toastr/toastr.scss";
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.dropzone {
+  border:  2px dashed rgba(0, 0, 0, 0.3) !important;
+}
+
+
+// .content-header{
+//   padding: 10px 0.5rem !important;
+// }
+
+
+table.mydatatable td {
+  padding: 3px 2px;
+  font-size: 13px;
+}
+table.mydatatable {
+  td, th {
+      vertical-align: middle;
+  }
+}
+table.mydatatable {
+  th {
+      font-weight: bold !important;
+  }
+}
+.jtdom {
+  padding-top: 3rem !important;
+  display: flex;
+  align-items: center;
+  grid-column-gap: 10px;
+}

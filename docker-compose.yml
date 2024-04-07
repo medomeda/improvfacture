@@ -1,0 +1,108 @@
+version: '3.1'
+services:
+
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: vue-starter
+    #restart: always
+    depends_on:
+      - webserver
+      - db
+    tty: true
+    environment:
+      SERVICE_NAME: vue-starter
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+       - ./:/var/www
+       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: vue-starter-webserver
+    #restart: always
+    tty: true
+    ports:
+      - "8008:80"
+        #  - "4431:443"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    # platform: linux/x86_64
+    # image: mysql:8.0.17
+    image: mysql/mysql-server:8.0.23
+    container_name: vue-starter-db
+    command: --default-authentication-plugin=mysql_native_password
+    #restart: always
+    tty: true
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: 123456
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:9.5-alpine
+    container_name: vue-starter-postgres
+    volumes:
+        - "./sourcefiles/postgres:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  #adminer for db access
+  # adminer:
+  #   image: adminer:latest
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8080:8080
+  
+  #phpmyadmin
+  phpmyadmin:
+    platform: linux/x86_64
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: 123456
+      UPLOAD_LIMIT: 20M
+    restart: always
+    ports:
+      - 8899:80
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local 
+
